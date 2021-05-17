@@ -6,7 +6,7 @@
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:09:09 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/16 15:02:54 by sujo             ###   ########.fr       */
+/*   Updated: 2021/05/17 20:54:37 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ int				ft_printf(const char *str, ...);
 size_t			ft_strlen(const char *s);
 void			ft_putstr(const char *s);
 
-int			valid_char(char c, const char *str);
+int				valid_char(char c, const char *str);
+int				get_number(char *str, int *idx);
 
-typedef struct			s_format
+typedef struct	s_format
 {
 	int			zero;
 	int			left;
