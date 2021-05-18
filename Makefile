@@ -1,27 +1,28 @@
 CC=gcc
-SRCS=ft_atoi.c 
-SRCB=ft_lstadd_front.c 
+SRCS=ft_printf.c ft_printf_utils.c ft_printf_arg.c ft_printf_arg_2.c ft_string.c main.c
 OBJS=$(SRCS:.c=.o)
-OBJSB=$(SRCB:.c=.o)
-NAME=libftprintf.a
+#NAME=libftprintf.a
+TARGET=exec
 HEADER=-I libft.h
-CFLAG=-Wall -Werror -Wextra
+#CFLAG=-Wall -Werror -Wextra
+CFLAG=
 
-all: $(NAME)
+#all: $(NAME)
+all: $(TARGET)
 
-$(NAME): $(OBJS)
-	ar -rc $(NAME) $^
-
-bonus : $(OBJSB) $(OBJS)
-	ar -rc $(NAME) $^
+#$(NAME): $(OBJS)
+	#ar -rc $(NAME) $^
 
 %.o: %.c
 	$(CC) $(CFLAG) -c -o $@ $< $(HEADER)
 
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAG) -o $@ $^
+
 clean:
-	rm -f $(OBJS) $(OBJSB)
+	rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(TARGET)
 
 re: fclean all

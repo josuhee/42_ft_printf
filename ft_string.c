@@ -6,7 +6,7 @@
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:06:33 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/14 20:10:18 by sujo             ###   ########.fr       */
+/*   Updated: 2021/05/18 22:36:02 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,9 @@ void	ft_putstr(const char *s)
 	if (!s)
 		return ;
 	write(1, s, ft_strlen(s));
+}
+
+void	ft_putchar(const char c)
+{
+	write(1, &c, 1);
 }
