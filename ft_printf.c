@@ -6,12 +6,11 @@
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:05:32 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/21 02:57:38 by sujo             ###   ########.fr       */
+/*   Updated: 2021/05/21 06:15:10 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 static void		init_struct(t_format *info)
 {
@@ -44,18 +43,6 @@ static int		get_arg(va_list ap, t_format info, char type)
 	if (type == 'p')
 		length = get_type_p(ap, info);
 	return (length);
-}
-
-/*제출할 땐 삭제하기*/
-void			print_struct(t_format info)
-{
-	printf("\n=======[struct info]========\n");
-	printf("zero\t: %d\n", info.zero);
-	printf("left\t: %d\n", info.left);
-	printf("width\t: %d\n", info.width);
-	printf("dot\t: %d\n", info.dot);
-	printf("prec\t: %d\n", info.precision);
-	printf("============================\n");
 }
 
 static int		set_format(va_list ap, char *str, int *idx)
@@ -108,7 +95,6 @@ static int		set_format(va_list ap, char *str, int *idx)
 	}
 	if (info.left == 1)
 		info.zero = 0;
-	//print_struct(info);
 	return (get_arg(ap, info, str[*idx]));
 }
 
