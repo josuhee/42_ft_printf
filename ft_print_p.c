@@ -1,47 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string.c                                        :+:      :+:    :+:   */
+/*   ft_print_p.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/14 20:06:33 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/20 15:35:48 by sujo             ###   ########.fr       */
+/*   Created: 2021/05/21 04:01:52 by sujo              #+#    #+#             */
+/*   Updated: 2021/05/21 04:31:04 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+static void		func(unsigned long nbr, int len, char *base)
 {
-	size_t size;
-
-	size = 0;
-	while (*s++)
-		size++;
-	return (size);
-}
-
-void	ft_putstr(const char *s)
-{
-	if (!s)
+	if (nbr == 0)
 		return ;
-	write(1, s, ft_strlen(s));
+	func(nbr / len, len, base);
+	ft_putchar(base[nbr % len]);
 }
 
-void	ft_putchar(const char c)
+void			ft_putnbr_p(unsigned long nbr, int len, char *base)
 {
-	write(1, &c, 1);
+	func(nbr / len, len, base);
+	ft_putchar(base[nbr % len]);
 }
 
-void	ft_put_n_char(int cnt, char ch)
+int				num_size_p(unsigned long num, int base_len)
 {
-	int idx;
+	int size;
 
-	idx = 0;
-	while (idx < cnt)
+	if (num == 0)
+		return (1);
+	size = 0;
+	while (num > 0)
 	{
-		write(1, &ch, 1);
-		idx++;
+		num /= base_len;
+		size++;
 	}
+	return (size);
 }

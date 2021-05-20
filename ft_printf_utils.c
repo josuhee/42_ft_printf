@@ -6,7 +6,7 @@
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:31:09 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/18 23:03:53 by sujo             ###   ########.fr       */
+/*   Updated: 2021/05/21 03:58:41 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,15 @@ int				get_number(char *str, int *idx)
 	return (result);
 }
 
-void			put_n_char(int cnt, char ch)
-{
-	int idx;
-
-	idx = 0;
-	while (idx < cnt)
-	{
-		write(1, &ch, 1);
-		idx++;
-	}
-}
-
 int				num_size(long long num, int base_len)
 {
 	int size;
 
+	if (num == 0)
+		return (1);
 	size = 0;
 	if (num < 0)
-	{
 		num *= -1;
-		//size++;
-	}
 	while (num > 0)
 	{
 		num /= base_len;
@@ -74,21 +61,21 @@ int				num_size(long long num, int base_len)
 	return (size);
 }
 
-static void		func(long long nbr)
+static void		func(long long nbr, int len, char *base)
 {
 	if (nbr == 0)
 		return ;
-	func(nbr / 10);
-	ft_putchar(nbr % 10 + '0');
+	func(nbr / len, len, base);
+	ft_putchar(base[nbr % len]);
 }
 
-void			ft_putnbr(int n)
+void			ft_putnbr(long long n, int len, char *base)
 {
 	long long nbr;
 
 	nbr = n;
 	if (nbr < 0)
 		nbr *= -1;
-	func(nbr / 10);
-	ft_putchar(nbr % 10 + '0');
+	func(nbr / len, len, base);
+	ft_putchar(base[nbr % len]);
 }

@@ -6,7 +6,7 @@
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:05:32 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/18 23:11:46 by sujo             ###   ########.fr       */
+/*   Updated: 2021/05/21 02:57:38 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ static int		get_arg(va_list ap, t_format info, char type)
 		length = get_type_s(ap, info);
 	if (type == '%')
 		length = get_type_per(info);
-	if (type == 'd')
+	if (type == 'd' || type == 'i')
 		length = get_type_nbr_dec(ap, info);
-	/*
-	if (type == 'p')
-	if (type == 'd')
-	if (type == 'i')
 	if (type == 'u')
+		length = get_type_u(ap, info);
 	if (type == 'x')
+		length = get_type_x(ap, info, HEX_LOW);
 	if (type == 'X')
-	*/
+		length = get_type_x(ap, info, HEX_UP);
+	if (type == 'p')
+		length = get_type_p(ap, info);
 	return (length);
 }
 
@@ -61,42 +61,55 @@ void			print_struct(t_format info)
 static int		set_format(va_list ap, char *str, int *idx)
 {
 	t_format	info;
-	int			i_idx;
 	int			num;
 
-	i_idx = *idx;
 	init_struct(&info);
-	while (valid_char(str[i_idx], TYPE) == -1)
+	while (valid_char(str[*idx], TYPE) == -1)
 	{
-		if (str[i_idx] == '-')
+		if (str[*idx] == '-')
 			info.left = 1;
-		if (str[i_idx] == '0' && info.dot == 0)
+		if (str[*idx] == '0' && info.dot == 0)
 			info.zero = 1;
-		if (str[i_idx] == '.')
+		if (str[*idx] == '.')
 		{
 			info.dot = 1;
 			info.precision = 0;
 		}
-		if (str[i_idx] == '*')
+		if (str[*idx] == '*')
 		{
 			if (info.dot == 0)
+			{
 				info.width = va_arg(ap, int);
+				if (info.width < 0)
+				{
+					info.width *= -1;
+					info.left = 1;
+					info.zero = 0;
+				}
+				if (info.width == 0)
+					info.zero = 0;
+			}
 			else
+			{
 				info.precision = va_arg(ap, int);
+				if (info.precision < 0)
+					info.precision = -1;
+			}
 		}
-		if (valid_char(str[i_idx], DEC) != -1 && str[i_idx] != '0')
+		if (valid_char(str[*idx], DEC) != -1 && str[*idx] != '0')
 		{
-			num = get_number(str, &i_idx);
+			num = get_number(str, &*idx);
 			if (info.dot == 0)
 				info.width = num;
 			else
 				info.precision = num;
 		}
-		i_idx++;
+		*idx = *idx + 1;
 	}
-	*idx = i_idx;
+	if (info.left == 1)
+		info.zero = 0;
 	//print_struct(info);
-	return (get_arg(ap, info, str[i_idx]));
+	return (get_arg(ap, info, str[*idx]));
 }
 
 int				ft_printf(const char *str, ...)
