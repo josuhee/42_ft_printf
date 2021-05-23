@@ -6,7 +6,7 @@
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:05:32 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/21 06:15:10 by sujo             ###   ########.fr       */
+/*   Updated: 2021/05/23 16:27:43 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int		get_arg(va_list ap, t_format info, char type)
 static int		set_format(va_list ap, char *str, int *idx)
 {
 	t_format	info;
-	int			num;
 
 	init_struct(&info);
 	while (valid_char(str[*idx], TYPE) == -1)
@@ -63,34 +62,9 @@ static int		set_format(va_list ap, char *str, int *idx)
 			info.precision = 0;
 		}
 		if (str[*idx] == '*')
-		{
-			if (info.dot == 0)
-			{
-				info.width = va_arg(ap, int);
-				if (info.width < 0)
-				{
-					info.width *= -1;
-					info.left = 1;
-					info.zero = 0;
-				}
-				if (info.width == 0)
-					info.zero = 0;
-			}
-			else
-			{
-				info.precision = va_arg(ap, int);
-				if (info.precision < 0)
-					info.precision = -1;
-			}
-		}
+			set_format_star(ap, &info);
 		if (valid_char(str[*idx], DEC) != -1 && str[*idx] != '0')
-		{
-			num = get_number(str, &*idx);
-			if (info.dot == 0)
-				info.width = num;
-			else
-				info.precision = num;
-		}
+			set_format_num(&info, str, idx);
 		*idx = *idx + 1;
 	}
 	if (info.left == 1)

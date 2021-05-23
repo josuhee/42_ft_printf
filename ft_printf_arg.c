@@ -6,14 +6,14 @@
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 12:42:44 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/21 01:28:44 by sujo             ###   ########.fr       */
+/*   Updated: 2021/05/23 15:39:56 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-int		get_type_per(t_format info)
+int			get_type_per(t_format info)
 {
 	int length;
 
@@ -36,7 +36,7 @@ int		get_type_per(t_format info)
 	return (length);
 }
 
-int		get_type_c(va_list ap, t_format info)
+int			get_type_c(va_list ap, t_format info)
 {
 	int		length;
 	char	ch;
@@ -59,7 +59,15 @@ int		get_type_c(va_list ap, t_format info)
 	return (length);
 }
 
-int		get_type_s(va_list ap, t_format info)
+static void	print_zero(int width, int zero)
+{
+	if (zero == 1)
+		ft_put_n_char(width, '0');
+	else
+		ft_put_n_char(width, ' ');
+}
+
+int			get_type_s(va_list ap, t_format info)
 {
 	int		tmp;
 	char	*str;
@@ -69,14 +77,14 @@ int		get_type_s(va_list ap, t_format info)
 	if (str == NULL)
 		str = "(null)";
 	str_len = (int)ft_strlen(str);
-	if (info.precision > str_len || info.precision == -1)
+	if (info.precision > str_len || info.precision <= -1)
 		info.precision = str_len;
 	tmp = info.width - info.precision;
 	if (tmp <= 0)
 		write(1, str, info.precision);
 	else if (info.left == 0)
 	{
-		ft_put_n_char(tmp, ' ');
+		print_zero(tmp, info.zero);
 		write(1, str, info.precision);
 	}
 	else if (info.left == 1)

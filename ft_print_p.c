@@ -6,7 +6,7 @@
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 04:01:52 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/21 04:31:04 by sujo             ###   ########.fr       */
+/*   Updated: 2021/05/23 16:03:11 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,22 @@ int				num_size_p(unsigned long num, int base_len)
 		size++;
 	}
 	return (size);
+}
+
+void			go_print_right_p(t_format info, unsigned long num, int size)
+{
+	ft_put_n_char(info.width - info.precision - 2, ' ');
+	ft_putstr("0x");
+	ft_put_n_char(info.precision - size, '0');
+	if (size)
+		ft_putnbr_p(num, 16, HEX_LOW);
+}
+
+void			go_print_left_p(t_format info, unsigned long num, int size)
+{
+	ft_putstr("0x");
+	ft_put_n_char(info.precision - size, '0');
+	if (size)
+		ft_putnbr_p(num, 16, HEX_LOW);
+	ft_put_n_char(info.width - info.precision - 2, ' ');
 }
