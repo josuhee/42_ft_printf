@@ -6,7 +6,7 @@
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:21:59 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/23 16:25:29 by sujo             ###   ########.fr       */
+/*   Updated: 2021/05/24 18:50:05 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	set_format_star(va_list ap, t_format *info)
 			info->zero = 0;
 		}
 		if (info->width == 0)
-			info->zero = 0;
+			info->zero = 1;
 	}
 	else
 	{

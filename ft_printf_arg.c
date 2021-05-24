@@ -6,12 +6,11 @@
 /*   By: sujo <sujo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 12:42:44 by sujo              #+#    #+#             */
-/*   Updated: 2021/05/23 15:39:56 by sujo             ###   ########.fr       */
+/*   Updated: 2021/05/24 12:00:18 by sujo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int			get_type_per(t_format info)
 {
