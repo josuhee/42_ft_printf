@@ -1,4 +1,6 @@
 # ft_printf
+* 42Seoul's project  
+* 보너스 구현 안함...
 
 ## 가변 인자 variadic arguments
 >```
