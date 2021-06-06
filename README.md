@@ -1,9 +1,9 @@
 # ft_printf
 
 ## 가변 인자 variadic arguments
->***
+>```
 >#include <stdarg.h>
->***
+>```
 >
 >[형식]  
 >반환값자료형 함수이름(자료형 고정매개변수, ...)
@@ -14,9 +14,9 @@
 >+ va_end : 가변 인자 처리가 끝났을 때 포인터를 NULL로 초기화
 
 ## Mandatory Part
-***
-int ft_printf(const char *, ...);
-***
+>```
+>int ft_printf(const char *, ...);
+>```
 >- 실제 printf처럼 버퍼 관리를 수행해서는 안된다.
 >- %c %s %p %d %i %u %x %X
 >- 모든 서식문자에서 -0.* 플래그와 최소 필드 너비의 조합을 어떤 조합도 처리할 것입니다.
